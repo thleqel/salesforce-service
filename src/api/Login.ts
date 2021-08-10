@@ -1,12 +1,32 @@
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import * as fs from 'fs';
 import { parseStringPromise } from 'xml2js';
 
+interface SfCredential {
+  username: string;
+  password: string;
+  token?: string;
+}
+
 class SoapLogin {
-  async login(role: { username: string; password: string; token?: string }) {
+  async login(role: SfCredential) {
     const envelope = await this.constructEnvelope(role);
+    const conf: AxiosRequestConfig = {
+      baseURL: 'https://test.salesforce.com/services',
+      url: '/Soap/u/51.0',
+      method: 'post',
+      headers: {
+        'Content-Type': 'text/xml',
+        SOAPAction: 'login',
+        'Accept-Encoding': 'gzip, deflate, br',
+      },
+      data: envelope,
+    };
+    const res: AxiosResponse = await axios.request(conf);
+    return res.data;
   }
 
-  async constructEnvelope(role: { username: string; password: string; token?: string }) {
+  async constructEnvelope(role: SfCredential) {
     if (role.username === '' || role.password === '') {
       throw new Error('Missing login details!');
     }
@@ -21,7 +41,7 @@ class SoapLogin {
   }
 
   loadEnvelop() {
-    let envelop = fs.readFileSync(process.cwd() + '/src/api/resources/login-env.xml');
+    const envelop = fs.readFileSync(process.cwd() + '/src/api/resources/login-env.xml');
     return parseStringPromise(envelop);
   }
 }
