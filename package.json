@@ -7,7 +7,7 @@
     "lib/**/*"
   ],
   "scripts": {
-    "test": "jest --colors --coverage --config jestconfig.json",
+    "test": "npx jest --ci --runInBand --silent --colors --coverage",
     "build": "rm -rf ./lib && tsc",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json"
@@ -25,6 +25,7 @@
     "@types/xml2js": "^0.4.9",
     "axios": "^0.21.1",
     "jest": "^27.0.6",
+    "jest-junit": "^12.2.0",
     "prettier": "^2.3.2",
     "ts-jest": "^27.0.4",
     "tslint": "^6.1.3",
