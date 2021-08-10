@@ -20,3 +20,8 @@ steps:
     npm run lint
     npm test
   displayName: 'Check eslint and unit test'
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: 'coverage/clover.xml'
