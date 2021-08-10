@@ -23,7 +23,7 @@ class SoapLogin {
       data: envelope,
     };
     const res: AxiosResponse = await axios.request(conf);
-    return res.data;
+    return res;
   }
 
   async constructEnvelope(role: SfCredential) {
