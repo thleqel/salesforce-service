@@ -19,10 +19,10 @@ module.exports = {
   "coverageReporters": ["json", "lcov", "text", "clover", "cobertura"],
   coverageThreshold: {
     global: {
-      statements: 50,
-      branches: 80,
-      functions: 0,
-      lines: 0,
+      statements: 70,
+      branches: 70,
+      functions: 70,
+      lines: 70,
     },
   }
   // setupFiles: ['./jest.setup-file.ts'],
