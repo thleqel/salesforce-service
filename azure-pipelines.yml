@@ -21,6 +21,10 @@ steps:
     npm test
   displayName: 'Check eslint and unit test'
 
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'coverage/**.xml'
 - task: PublishCodeCoverageResults@1
   inputs:
     codeCoverageTool: 'Cobertura'
