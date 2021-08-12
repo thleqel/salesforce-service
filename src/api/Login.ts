@@ -1,19 +1,13 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import * as fs from 'fs';
-import { parseStringPromise } from 'xml2js';
-
-interface SfCredential {
-  username: string;
-  password: string;
-  token?: string;
-}
+import { SfConfig, SfCredential } from './interfaces/SfConfig';
 
 class SoapLogin {
-  async login(role: SfCredential) {
+  async soapLogin(role: SfCredential, config: SfConfig) {
     const envelope = await this.constructEnvelope(role);
     const conf: AxiosRequestConfig = {
-      baseURL: 'https://test.salesforce.com/services',
-      url: '/Soap/u/51.0',
+      baseURL: config.urls.baseUrl,
+      url: config.paths.soap,
       method: 'post',
       headers: {
         'Content-Type': 'text/xml',
@@ -22,27 +16,34 @@ class SoapLogin {
       },
       data: envelope,
     };
-    const res: AxiosResponse = await axios.request(conf);
-    return res.data;
+    return axios.request(conf);
   }
 
   async constructEnvelope(role: SfCredential) {
     if (role.username === '' || role.password === '') {
       throw new Error('Missing login details!');
     }
-    const abstractEnvelope = await this.loadEnvelop();
-    abstractEnvelope['env:Envelope']['env:Body'][0]['n1:login'][0]['n1:username'] = role.username;
+    let abstractEnvelope: string = this.loadEnvelop();
+    abstractEnvelope = abstractEnvelope.replace(
+      '<n1:username></n1:username>',
+      `<n1:username>${role.username}</n1:username>`,
+    );
     if (role.token !== undefined) {
-      abstractEnvelope['env:Envelope']['env:Body'][0]['n1:login'][0]['n1:password'] = `${role.password}${role.token}`;
+      abstractEnvelope = abstractEnvelope.replace(
+        '<n1:password></n1:password>',
+        `<n1:password>${role.password}${role.token}</n1:password>`,
+      );
     } else {
-      abstractEnvelope['env:Envelope']['env:Body'][0]['n1:login'][0]['n1:password'] = role.password;
+      abstractEnvelope = abstractEnvelope.replace(
+        '<n1:password></n1:password>',
+        `<n1:password>${role.password}</n1:password>`,
+      );
     }
     return abstractEnvelope;
   }
 
   loadEnvelop() {
-    const envelop = fs.readFileSync(process.cwd() + '/src/api/resources/login-env.xml');
-    return parseStringPromise(envelop);
+    return fs.readFileSync(process.cwd() + '/src/api/resources/login-env.xml', { encoding: 'utf-8' });
   }
 }
 

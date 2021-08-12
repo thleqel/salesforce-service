@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns="urn:partner.soap.sforce.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <soapenv:Body>
+        <loginResponse>
+            <result>
+                <metadataServerUrl>https://hotsname/services/Soap/m/51.0/00D5g00000A1MKL</metadataServerUrl>
+                <passwordExpired>false</passwordExpired>
+                <sandbox>false</sandbox>
+                <serverUrl>https://hotsname/services/Soap/u/51.0/00D5g00000A1MKL</serverUrl>
+                <sessionId>00D5g00000A1MKL!AR0AQEk2A9aabasNXQ96gJFl1x1r6GndsBLyyP9ixgwHF6gTJPM.26otyCPJPh.nsHeu5gbDl5mfkOujQp_urGrxR32dcrHB1</sessionId>
+                <userId>0055g00000CNYcwAAH</userId>
+                <userInfo>
+                    <accessibilityMode>false</accessibilityMode>
+                    <chatterExternal>false</chatterExternal>
+                    <currencySymbol>$</currencySymbol>
+                    <orgAttachmentFileSizeLimit>26214400</orgAttachmentFileSizeLimit>
+                    <orgDefaultCurrencyIsoCode>AUD</orgDefaultCurrencyIsoCode>
+                    <orgDefaultCurrencyLocale>en_AU</orgDefaultCurrencyLocale>
+                    <orgDisallowHtmlAttachments>false</orgDisallowHtmlAttachments>
+                    <orgHasPersonAccounts>false</orgHasPersonAccounts>
+                    <organizationId>00D5g00000A1MKLEA3</organizationId>
+                    <organizationMultiCurrency>false</organizationMultiCurrency>
+                    <organizationName>Private</organizationName>
+                    <profileId>00e5g000004Msy0AAC</profileId>
+                    <roleId xsi:nil="true"/>
+                    <sessionSecondsValid>7200</sessionSecondsValid>
+                    <userDefaultCurrencyIsoCode xsi:nil="true"/>
+                    <userEmail>testtest@gmail.com</userEmail>
+                    <userFullName>Thanh Le</userFullName>
+                    <userId>0055g00000CNYcwAAH</userId>
+                    <userLanguage>en_US</userLanguage>
+                    <userLocale>en_AU</userLocale>
+                    <userName>testtest@gmail.com</userName>
+                    <userTimeZone>Australia/Sydney</userTimeZone>
+                    <userType>Standard</userType>
+                    <userUiSkin>Theme3</userUiSkin>
+                </userInfo>
+            </result>
+        </loginResponse>
+    </soapenv:Body>
+</soapenv:Envelope>
