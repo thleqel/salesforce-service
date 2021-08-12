@@ -1,17 +1,21 @@
+import * as SfConfig from '../interfaces/SfConfig';
 import soapLogin from '../Login';
+import { parseStringPromise } from 'xml2js';
 jest.mock('axios');
 
 describe('login using soap api', () => {
   test('it should assign credential successfully', async () => {
-    let envelope = await soapLogin.constructEnvelope({ username: 'abc', password: 'easy' });
-    expect(envelope['env:Envelope']['env:Body'][0]['n1:login'][0]['n1:username']).toBe('abc');
-    expect(envelope['env:Envelope']['env:Body'][0]['n1:login'][0]['n1:password']).toBe('easy');
+    let envelope: any = await soapLogin.constructEnvelope({ username: 'abc', password: 'easy' });
+    envelope = await parseStringPromise(envelope);
+    expect(envelope['env:Envelope']['env:Body'][0]['n1:login'][0]['n1:username'][0]).toBe('abc');
+    expect(envelope['env:Envelope']['env:Body'][0]['n1:login'][0]['n1:password'][0]).toBe('easy');
   });
 
   test('it should combine token if token exists successfully', async () => {
-    let envelope = await soapLogin.constructEnvelope({ username: 'abc', password: 'easy', token: 'sampleToken' });
-    expect(envelope['env:Envelope']['env:Body'][0]['n1:login'][0]['n1:username']).toBe('abc');
-    expect(envelope['env:Envelope']['env:Body'][0]['n1:login'][0]['n1:password']).toBe('easysampleToken');
+    let envelope: any = await soapLogin.constructEnvelope({ username: 'abc', password: 'easy', token: 'sampleToken' });
+    envelope = await parseStringPromise(envelope);
+    expect(envelope['env:Envelope']['env:Body'][0]['n1:login'][0]['n1:username'][0]).toBe('abc');
+    expect(envelope['env:Envelope']['env:Body'][0]['n1:login'][0]['n1:password'][0]).toBe('easysampleToken');
   });
 
   test('it should raise exception if username is empty', async () => {
@@ -27,7 +31,17 @@ describe('login using soap api', () => {
   });
 
   test('it should call login soap api successfully', async () => {
-    await soapLogin.login({ username: 'abc', password: 'easy' });
+    let config: SfConfig.SfConfig = {
+      urls: {
+        baseUrl: 'http://something.com',
+      },
+      paths: {
+        soap: '',
+        data: '',
+        query: '',
+      },
+    };
+    await soapLogin.soapLogin({ username: 'abc', password: 'easy' }, config);
   });
 });
 

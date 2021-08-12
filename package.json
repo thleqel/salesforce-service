@@ -7,7 +7,7 @@
     "lib/**/*"
   ],
   "scripts": {
-    "test": "npx jest --ci --runInBand --silent --colors --coverage",
+    "test": "npx jest --ci --runInBand --colors --coverage",
     "build": "rm -rf ./lib && tsc",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json"
