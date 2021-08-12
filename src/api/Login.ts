@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import * as fs from 'fs';
 import { SfConfig, SfCredential } from './interfaces/SfConfig';
 
@@ -16,8 +16,7 @@ class SoapLogin {
       },
       data: envelope,
     };
-    const res: AxiosResponse = await axios.request(conf);
-    return res;
+    return axios.request(conf);
   }
 
   async constructEnvelope(role: SfCredential) {
@@ -44,8 +43,7 @@ class SoapLogin {
   }
 
   loadEnvelop() {
-    const envelop = fs.readFileSync(process.cwd() + '/src/api/resources/login-env.xml', { encoding: 'utf-8' });
-    return envelop;
+    return fs.readFileSync(process.cwd() + '/src/api/resources/login-env.xml', { encoding: 'utf-8' });
   }
 }
 
