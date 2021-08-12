@@ -1,7 +1,5 @@
-import * as SfConfig from '../interfaces/SfConfig';
 import soapLogin from '../Login';
 import { parseStringPromise } from 'xml2js';
-jest.mock('axios');
 
 describe('login using soap api', () => {
   test('it should assign credential successfully', async () => {
@@ -29,20 +27,4 @@ describe('login using soap api', () => {
       await soapLogin.constructEnvelope({ username: 'abc', password: '' });
     }).rejects.toThrow(Error);
   });
-
-  test('it should call login soap api successfully', async () => {
-    let config: SfConfig.SfConfig = {
-      urls: {
-        baseUrl: 'http://something.com',
-      },
-      paths: {
-        soap: '',
-        data: '',
-        query: '',
-      },
-    };
-    await soapLogin.soapLogin({ username: 'abc', password: 'easy' }, config);
-  });
 });
-
-jest.resetAllMocks();

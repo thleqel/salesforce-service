@@ -1,7 +1,7 @@
 {
   "urls":{
     "testUrl": "https://test.salesforce.com",
-    "baseUrl": "https://private217-dev-ed.my.salesforce.com",
+    "baseUrl": "https://test.salesforce.com",
     "domain": "private217-dev-ed.my.salesforce.com"
   },
   "paths": {
