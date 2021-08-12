@@ -7,7 +7,7 @@
                 <passwordExpired>false</passwordExpired>
                 <sandbox>false</sandbox>
                 <serverUrl>https://hotsname/services/Soap/u/51.0/00D5g00000A1MKL</serverUrl>
-                <sessionId>00D5g00000A1MKL!AR0AQEk2A9aabasNXQ96gJFl1x1r6GndsBLyyP9ixgwHF6gTJPM.26otyCPJPh.nsHeu5gbDl5mfkOujQp_urGrxR32dcrHB1</sessionId>
+                <sessionId>expectedSessionId</sessionId>
                 <userId>0055g00000CNYcwAAH</userId>
                 <userInfo>
                     <accessibilityMode>false</accessibilityMode>
