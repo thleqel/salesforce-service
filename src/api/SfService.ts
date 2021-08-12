@@ -1,6 +1,8 @@
 import Config from './Config';
 import { SfConfig, SfCredential } from './interfaces/SfConfig';
 import login from './Login';
+import { parseStringPromise } from 'xml2js';
+import axios, { AxiosRequestConfig } from 'axios';
 
 export default class SfService {
   private config: any;
@@ -9,7 +11,7 @@ export default class SfService {
     this.config = new Config(configFile).getConfig();
   }
 
-  async login(role: SfCredential) {
+  private async login(role: SfCredential) {
     if (
       this.config === undefined ||
       this.config.urls === undefined ||
@@ -24,5 +26,29 @@ export default class SfService {
       throw new Error('There was a problem with configuration!');
     const sfConfig: SfConfig = { urls: this.config.urls, paths: this.config.paths };
     return login.soapLogin(role, sfConfig);
+  }
+
+  async getSessionId(role: SfCredential) {
+    const response = await this.login(role);
+    const xmlData = await parseStringPromise(response.data);
+    process.env.SESSION_ID = xmlData['soapenv:Envelope']['soapenv:Body'][0].loginResponse[0].result[0].sessionId[0];
+    process.env.SID_CLIENT_ID = xmlData['soapenv:Envelope']['soapenv:Body'][0].loginResponse[0].result[0].userId[0];
+    return {
+      sid: process.env.SESSION_ID,
+      sidClient: process.env.SID_CLIENT_ID,
+    };
+  }
+
+  async query(soqlQuery: string) {
+    const conf: AxiosRequestConfig = {
+      baseURL: this.config.urls.baseUrl,
+      url: `${this.config.paths.query}${soqlQuery}`,
+      method: 'get',
+      headers: {
+        Authorization: `Bearer ${process.env.SESSION_ID}`,
+        'Content-Type': 'application/json',
+      },
+    };
+    return axios.request(conf);
   }
 }
