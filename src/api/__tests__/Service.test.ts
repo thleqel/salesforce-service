@@ -1,4 +1,4 @@
-import SfService from '../SfService';
+import SfService from '../../Index';
 import * as fs from 'fs';
 import * as nock from 'nock';
 
