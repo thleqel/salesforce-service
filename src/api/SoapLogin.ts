@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import * as fs from 'fs';
-import { SfConfig, SfCredential } from './interfaces/SfConfig';
+import { SfConfig, SfCredential } from './interfaces/Config';
 
 class SoapLogin {
   async soapLogin(role: SfCredential, config: SfConfig) {

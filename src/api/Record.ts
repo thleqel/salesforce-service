@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { SfConfig } from './interfaces/SfConfig';
+import { SfConfig } from './interfaces/Config';
 
 class Records {
   async getRecord(recordId: string, config: SfConfig) {
