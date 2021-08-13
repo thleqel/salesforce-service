@@ -1,8 +1,9 @@
 {
   "name": "salesforce-service",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.1",
+  "description": "A service helps using Salesforce API easier",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "files": [
     "lib/**/*"
   ],
@@ -10,14 +11,19 @@
     "test": "npx jest --ci --runInBand --colors --coverage",
     "build": "rm -rf ./lib && tsc",
     "format": "prettier --write \"src/**/*.ts\"",
-    "lint": "tslint -p tsconfig.json"
+    "lint": "tslint -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly" : "npm test && npm run lint",
+    "preversion" : "npm run lint",
+    "version" : "npm run format && git add -A src",
+    "postversion" : "git push && git push --tags"
   },
   "repository": {
     "type": "git",
     "url": "git@github:thleqel/salesforce-service.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["salesforce", "automation"],
+  "author": "Thanh Le",
   "license": "ISC",
   "devDependencies": {
     "@types/axios": "^0.14.0",

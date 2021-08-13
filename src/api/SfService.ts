@@ -1,5 +1,5 @@
 import Config from './Config';
-import { SfConfig, SfCredential } from './interfaces/SfConfig';
+import { SfConfig, SfCredential } from './interfaces/Config';
 import login from './SoapLogin';
 import { parseStringPromise } from 'xml2js';
 import axios, { AxiosRequestConfig } from 'axios';
