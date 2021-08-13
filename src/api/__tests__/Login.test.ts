@@ -1,4 +1,4 @@
-import soapLogin from '../Login';
+import soapLogin from '../SoapLogin';
 import { parseStringPromise } from 'xml2js';
 
 describe('login using soap api', () => {
