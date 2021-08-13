@@ -5,7 +5,7 @@ import * as nock from 'nock';
 describe('service testing', () => {
   const testFile = process.cwd() + '/src/api/__tests__/__resources__/test.json';
   const sampleResponseFile = process.cwd() + '/src/api/__tests__/__resources__/soap.response.xml';
-  const service = new SfService(testFile);
+  const service = new SfService({ configFile: testFile });
   const mockedResponse = fs.readFileSync(sampleResponseFile, 'utf-8');
   const testUrl = 'https://test.salesforce.com';
 

@@ -1,6 +1,6 @@
 {
-  "name": "salesforce-service",
-  "version": "0.0.1",
+  "name": "wdio-salesforce-service",
+  "version": "0.0.1a",
   "description": "A service helps using Salesforce API easier",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
