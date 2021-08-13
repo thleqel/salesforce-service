@@ -8,8 +8,8 @@ import record from './Record';
 export default class SfService {
   private sfConfig: SfConfig;
 
-  constructor(configFile: string) {
-    const config: any = new Config(configFile).getConfig();
+  constructor(opts: any) {
+    const config: any = new Config(opts.configFile).getConfig();
     if (
       config === undefined ||
       config.urls === undefined ||

@@ -1,5 +1,5 @@
 {
-  "name": "salesforce-service",
+  "name": "wdio-salesforce-service",
   "version": "0.0.1",
   "description": "A service helps using Salesforce API easier",
   "main": "lib/index.js",
