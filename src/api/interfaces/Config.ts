@@ -17,6 +17,37 @@ export interface SfCredential {
   token?: string;
 }
 
+export interface SfdxCredential {
+  clientid: string;
+  keyfilePath: string;
+  username: string;
+  url?: string;
+  json?: boolean;
+  loglevel?: string;
+  setdefaultdevhubusername?: boolean;
+  setdefaultusername?: boolean;
+}
+
+export interface SfdxQueryConfig {
+  query: string;
+  json?: boolean;
+  loglevel?: string;
+  apiversion?: string;
+  usetoolingapi?: boolean;
+  resultformat?: string;
+  perflog?: boolean;
+  outputLocation?: string;
+}
+
+export interface SfdxDeleteConfig {
+  csvFilePath: string;
+  sobjectType: string;
+  json?: boolean;
+  loglevel?: string;
+  apiversion?: string;
+  wait?: string;
+}
+
 interface SfUrl {
   baseUrl: string;
   domain?: string;
