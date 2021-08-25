@@ -3,12 +3,12 @@ import utils from "./Utils";
 
 class SfdxQuery {
   async query(queryConfig: SfdxQueryConfig, alias: string) {
-    const cmd : string = this.constructCommand(queryConfig, alias);
+    const cmd: string = this.constructCommand(queryConfig, alias);
     return utils.execShellCommand(cmd);
   }
 
   constructCommand(queryConfig: SfdxQueryConfig, alias: string) {
-    let cmd : string = `sfdx force:data:soql:query -u ${alias} -q "${queryConfig.query}"`;
+    let cmd: string = `sfdx force:data:soql:query -u ${alias} -q "${queryConfig.query}"`;
     if (queryConfig.json === true) {
       cmd += ` --json`;
     }

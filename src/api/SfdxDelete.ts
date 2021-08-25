@@ -4,12 +4,12 @@ import sfdxQuery from "./SfdxQuery";
 
 class SfdxDelete {
   async delete(deleteConfig: SfdxDeleteConfig, alias: string) {
-    const cmd : string = this.constructCommand(deleteConfig, alias);
+    const cmd: string = this.constructCommand(deleteConfig, alias);
     return utils.execShellCommand(cmd);
   }
 
   async deleteFromQuery(query: string, deleteConfig: SfdxDeleteConfig, alias: string) {
-    const queryConfig : SfdxQueryConfig = {
+    const queryConfig: SfdxQueryConfig = {
       query: query,
       outputLocation: deleteConfig.csvFilePath
     }
@@ -20,7 +20,7 @@ class SfdxDelete {
   }
 
   constructCommand(deleteConfig: SfdxDeleteConfig, alias: string) {
-    let cmd : string = `sfdx force:data:bulk:delete -u ${alias} -s ${deleteConfig.sobjectType} -f ${deleteConfig.csvFilePath}`;
+    let cmd: string = `sfdx force:data:bulk:delete -u ${alias} -s ${deleteConfig.sobjectType} -f ${deleteConfig.csvFilePath}`;
     if (deleteConfig.json === true) {
       cmd += ` --json`;
     }

@@ -10,7 +10,7 @@ class Utils {
         if(error) {
           reject(`Command "${cmd}" failed with error "${error}"`);
         }
-        resolve(stdout ? stdout : stderr);
+        resolve(stdout ? stdout: stderr);
       });
     });
   }
@@ -28,7 +28,7 @@ class Utils {
   }
 
   async getIdQueryRecords(inputFile: string, outputFile: string) {
-    const writer : any = csvWriter.createObjectCsvWriter({
+    const writer: any = csvWriter.createObjectCsvWriter({
       path: outputFile,
       header: [
         {id: 'Id', title: 'Id'}

@@ -17,6 +17,15 @@ export interface SfCredential {
   token?: string;
 }
 
+export interface SfdxLogoutConfig {
+  json?: boolean;
+  loglevel?: string;
+  username?: string;
+  apiversion?: string;
+  all?: boolean;
+  noprompt?: boolean;
+}
+
 export interface SfdxCredential {
   clientid: string;
   keyfilePath: string;
