@@ -28,7 +28,7 @@
   ],
   "author": "Thanh Le",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "@types/axios": "^0.14.0",
     "@types/jest": "^26.0.24",
     "@types/nock": "^11.1.0",
