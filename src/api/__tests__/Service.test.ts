@@ -65,5 +65,5 @@ describe('service testing', () => {
   it('execute anomynous script successfully', async () => {
     const response = await service.executeAnonymousScript('Integer i = 314159; System.debug(LoggingLevel.Error, i)');
     expect(response.data).toEqual('mocked');
-  })
+  });
 });

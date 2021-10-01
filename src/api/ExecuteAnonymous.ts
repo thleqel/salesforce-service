@@ -5,7 +5,7 @@ class ExecuteAnonymous {
   async executeAnonymous(script: string, config: SfConfig) {
     const envelope = await this.constructEnvelope(script);
     const soapPath = config.paths.soap;
-    const soapServicePath = soapPath.replace('services/Soap/u/', 'services/Soap/s/')
+    const soapServicePath = soapPath.replace('services/Soap/u/', 'services/Soap/s/');
     const conf: AxiosRequestConfig = {
       baseURL: config.urls.baseUrl,
       url: soapServicePath,
@@ -27,10 +27,7 @@ class ExecuteAnonymous {
       `<apex:sessionId>${process.env.SESSION_ID}</apex:sessionId>`,
     );
 
-    abstractEnvelope = abstractEnvelope.replace(
-      '<apex:String></apex:String>',
-      `<apex:String>${script}</apex:String>`,
-    );
+    abstractEnvelope = abstractEnvelope.replace('<apex:String></apex:String>', `<apex:String>${script}</apex:String>`);
     return abstractEnvelope;
   }
 
