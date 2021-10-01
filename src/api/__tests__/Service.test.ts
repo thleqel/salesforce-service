@@ -11,6 +11,7 @@ describe('service testing', () => {
 
   beforeAll(() => {
     nock(testUrl).post('/services/Soap/u/51.0').reply(200, mockedResponse);
+    nock(testUrl).post('/services/Soap/s/51.0').reply(200, 'mocked');
     nock(testUrl)
       .get(/\/services\/data\/v51.0\/query\/\?q\=(.*)/)
       .reply(200, 'query results');
@@ -60,4 +61,9 @@ describe('service testing', () => {
     const response = await service.deleteRecord('123');
     expect(response.data).toEqual('deleted record');
   });
+
+  it('execute anomynous script successfully', async () => {
+    const response = await service.executeAnonymousScript('Integer i = 314159; System.debug(LoggingLevel.Error, i)');
+    expect(response.data).toEqual('mocked');
+  })
 });

@@ -4,6 +4,7 @@ import login from './SoapLogin';
 import { parseStringPromise } from 'xml2js';
 import axios, { AxiosRequestConfig } from 'axios';
 import record from './Record';
+import executeAnonymous from './ExecuteAnonymous';
 
 export default class SfService {
   private sfConfig: SfConfig;
@@ -67,5 +68,9 @@ export default class SfService {
 
   async deleteRecord(recordId: string) {
     return record.deleteRecord(recordId, this.sfConfig);
+  }
+
+  async executeAnonymousScript(script: string) {
+    return executeAnonymous.executeAnonymous(script, this.sfConfig);
   }
 }
