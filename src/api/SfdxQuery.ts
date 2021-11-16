@@ -7,6 +7,15 @@ class SfdxQuery {
     return utils.execShellCommand(cmd);
   }
 
+  async queryAndProcess(query: string, outputPath: string, alias: string) {
+    const queryConfig: SfdxQueryConfig = {
+      query,
+      outputLocation: outputPath
+    }
+    await this.query(queryConfig, alias);
+    return utils.processQueryOutput(outputPath);
+  }
+
   constructCommand(queryConfig: SfdxQueryConfig, alias: string) {
     let cmd: string = `sfdx force:data:soql:query -u ${alias} -q "${queryConfig.query}"`;
     if (queryConfig.json === true) {

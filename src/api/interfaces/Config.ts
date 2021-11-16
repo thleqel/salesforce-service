@@ -57,6 +57,17 @@ export interface SfdxDeleteConfig {
   wait?: string;
 }
 
+export interface SfdxUpsertConfig {
+  externalid: string;
+  csvFilePath: string;
+  sobjectType: string;
+  json?: boolean;
+  loglevel?: string;
+  apiversion?: string;
+  wait?: string;
+  serial?: boolean;
+}
+
 interface SfUrl {
   baseUrl: string;
   domain?: string;

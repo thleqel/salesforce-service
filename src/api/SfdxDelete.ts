@@ -9,12 +9,9 @@ class SfdxDelete {
   }
 
   async deleteFromQuery(query: string, deleteConfig: SfdxDeleteConfig, alias: string) {
-    const queryConfig: SfdxQueryConfig = {
-      query: query,
-      outputLocation: deleteConfig.csvFilePath
-    }
-    await sfdxQuery.query(queryConfig, alias);
-    if(await utils.getIdQueryRecords(deleteConfig.csvFilePath, deleteConfig.csvFilePath)) {
+    const recordsToDelete = await sfdxQuery.queryAndProcess(query, deleteConfig.csvFilePath, alias);
+    if(recordsToDelete.length > 0) {
+      await utils.replaceKeys({ID: 'Id'}, recordsToDelete, deleteConfig.csvFilePath);
       await this.delete(deleteConfig, alias);
     }
   }

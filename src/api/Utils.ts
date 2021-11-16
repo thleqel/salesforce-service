@@ -27,21 +27,30 @@ class Utils {
     });
   }
 
-  async getIdQueryRecords(inputFile: string, outputFile: string) {
-    const writer: any = csvWriter.createObjectCsvWriter({
-      path: outputFile,
-      header: [
-        {id: 'Id', title: 'Id'}
-      ]
-    });
-    const input: any = this.readSyncCsv(inputFile);
-    const output: Array<object> = [];
+  processQueryOutput(inputFile: string) {
+    const input = this.readSyncCsv(inputFile);
+    return input.slice(1, input.length - 1);
+  }
+
+  async replaceKeys(map: {[key: string]: string}, input: {[key: string]: any}, outputFile?: string) {
+    const output: object[] = [];
     let i: number;
-    for(i = 1; i < input.length - 1; i++) {
-      output.push({Id: input[i].ID});
+    for(i = 0; i < input.length; i++) {
+      const row: any = {};
+      for(const [oldKey, newKey] of Object.entries(map)) {
+        row[newKey] = input[i][oldKey];
+      }
+      output.push(row);
     }
-    await writer.writeRecords(output);
-    return output.length > 0;
+    if(outputFile) {
+      const header = Object.values(map).map((value: string) => {return {id: value, title: value}});
+      const writer: any = csvWriter.createObjectCsvWriter({
+        path: outputFile,
+        header
+      });
+      await writer.writeRecords(output);
+    }
+    return output;
   }
 }
 

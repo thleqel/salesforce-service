@@ -34,19 +34,27 @@ describe('ensure helper functions work as expected', () => {
   });
 
   it('should process a csv file containing record IDs', async () => {
-    const res: boolean = await utils.getIdQueryRecords(process.cwd() + '/src/api/__tests__/__resources__/id-query-input.csv', process.cwd() + '/src/api/__tests__/__resources__/id-query-output.csv');
-    expect(res).toBe(true);
+    const records = await utils.processQueryOutput(process.cwd() + '/src/api/__tests__/__resources__/id-query-input.csv');
+    expect(records).toHaveLength(5);
+    const mappedRecords = await utils.replaceKeys({ID: 'Id'}, records, process.cwd() + '/src/api/__tests__/__resources__/id-query-output.csv');
+    expect(mappedRecords).toHaveLength(records.length);
     const outputCsv: Buffer = fs.readFileSync(process.cwd() + '/src/api/__tests__/__resources__/id-query-output.csv');
     const expectedCsv: Buffer = fs.readFileSync(process.cwd() + '/src/api/__tests__/__resources__/id-query-expected-output.csv');
     expect(Buffer.compare(outputCsv, expectedCsv)).toEqual(0);
+    const mappedRecordsNoOutput = await utils.replaceKeys({ID: 'Id'}, records);
+    expect(mappedRecordsNoOutput).toHaveLength(records.length);
   });
 
   it('should process a csv file containing no record IDs', async () => {
-    const res: boolean = await utils.getIdQueryRecords(process.cwd() + '/src/api/__tests__/__resources__/id-query-input-empty.csv', process.cwd() + '/src/api/__tests__/__resources__/id-query-output-empty.csv');
-    expect(res).toBe(false);
+    const records = await utils.processQueryOutput(process.cwd() + '/src/api/__tests__/__resources__/id-query-input-empty.csv');
+    expect(records).toHaveLength(0);
+    const mappedRecords = await utils.replaceKeys({ID: 'Id'}, records, process.cwd() + '/src/api/__tests__/__resources__/id-query-output-empty.csv');
+    expect(mappedRecords).toHaveLength(records.length);
     const outputCsv: Buffer = fs.readFileSync(process.cwd() + '/src/api/__tests__/__resources__/id-query-output-empty.csv');
     const expectedCsv: Buffer = fs.readFileSync(process.cwd() + '/src/api/__tests__/__resources__/id-query-expected-output-empty.csv');
     expect(Buffer.compare(outputCsv, expectedCsv)).toEqual(0);
+    const mappedRecordsNoOutput = await utils.replaceKeys({ID: 'Id'}, records);
+    expect(mappedRecordsNoOutput).toHaveLength(records.length);
   });
 
   it('should execute a system shell command successfully', async () => {

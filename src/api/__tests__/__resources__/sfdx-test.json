@@ -3,7 +3,7 @@
   "urls":{
     "instanceurl": "https://test.salesforce.com",
     "baseUrl": "https://test.salesforce.com",
-    "domain": "private217-dev-ed.my.salesforce.com"
+    "domain": "resilient-moose-k6rn5p-dev-ed.my.salesforce.com"
   },
   "paths": {
     "soap": "/services/Soap/u/51.0",
