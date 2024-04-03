@@ -1,9 +1,9 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import { SfConfig, SfCredential } from './interfaces/Config';
+import axios, { type AxiosRequestConfig } from 'axios'
+import { type SfConfig, type SfCredential } from './interfaces/Config'
 
 class SoapLogin {
-  async soapLogin(role: SfCredential, config: SfConfig) {
-    const envelope = await this.constructEnvelope(role);
+  async soapLogin (role: SfCredential, config: SfConfig): Promise<any> {
+    const envelope = this.constructEnvelope(role)
     const conf: AxiosRequestConfig = {
       baseURL: config.urls.baseUrl,
       url: config.paths.soap,
@@ -11,37 +11,37 @@ class SoapLogin {
       headers: {
         'Content-Type': 'text/xml',
         SOAPAction: 'login',
-        'Accept-Encoding': 'gzip, deflate, br',
+        'Accept-Encoding': 'gzip, deflate, br'
       },
-      data: envelope,
-    };
-    return axios.request(conf);
+      data: envelope
+    }
+    return await axios.request(conf)
   }
 
-  async constructEnvelope(role: SfCredential) {
+  constructEnvelope (role: SfCredential): string {
     if (role.username === '' || role.password === '') {
-      throw new Error('Missing login details!');
+      throw new Error('Missing login details!')
     }
-    let abstractEnvelope: string = this.loadEnvelop();
+    let abstractEnvelope: string = this.loadEnvelop()
     abstractEnvelope = abstractEnvelope.replace(
       '<n1:username></n1:username>',
-      `<n1:username>${role.username}</n1:username>`,
-    );
+      `<n1:username>${role.username}</n1:username>`
+    )
     if (role.token !== undefined) {
       abstractEnvelope = abstractEnvelope.replace(
         '<n1:password></n1:password>',
-        `<n1:password>${role.password}${role.token}</n1:password>`,
-      );
+        `<n1:password>${role.password}${role.token}</n1:password>`
+      )
     } else {
       abstractEnvelope = abstractEnvelope.replace(
         '<n1:password></n1:password>',
-        `<n1:password>${role.password}</n1:password>`,
-      );
+        `<n1:password>${role.password}</n1:password>`
+      )
     }
-    return abstractEnvelope;
+    return abstractEnvelope
   }
 
-  loadEnvelop() {
+  loadEnvelop (): string {
     return `<?xml version="1.0" encoding="utf-8" ?>
     <env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -52,8 +52,8 @@ class SoapLogin {
           <n1:password></n1:password>
         </n1:login>
       </env:Body>
-    </env:Envelope>`;
+    </env:Envelope>`
   }
 }
 
-export default new SoapLogin();
+export default new SoapLogin()

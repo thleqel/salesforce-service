@@ -1,26 +1,26 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import { SfConfig } from './interfaces/Config';
+import axios, { type AxiosRequestConfig } from 'axios'
+import { type SfConfig } from './interfaces/Config'
 
 class Records {
-  async getRecord(recordId: string, config: SfConfig) {
+  async getRecord (recordId: string, config: SfConfig): Promise<any> {
     const conf: AxiosRequestConfig = {
       baseURL: config.urls.baseUrl,
       url: `${config.paths.data}/ui-api/records/${recordId}?layoutTypes=full`,
       method: 'get',
       headers: {
         Authorization: `Bearer ${process.env.SESSION_ID}`,
-        'Content-Type': 'application/json',
-      },
-    };
-    return axios.request(conf);
+        'Content-Type': 'application/json'
+      }
+    }
+    return await axios.request(conf)
   }
 
-  async createRecord(object: string, objectFields: JSON, config: SfConfig) {
+  async createRecord (object: string, objectFields: JSON, config: SfConfig): Promise<any> {
     const body = {
       allowSaveOnDuplicate: false,
       apiName: object,
-      fields: objectFields,
-    };
+      fields: objectFields
+    }
 
     const conf: AxiosRequestConfig = {
       baseURL: config.urls.baseUrl,
@@ -28,19 +28,19 @@ class Records {
       method: 'post',
       headers: {
         Authorization: `Bearer ${process.env.SESSION_ID}`,
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      data: body,
-    };
+      data: body
+    }
 
-    return axios.request(conf);
+    return await axios.request(conf)
   }
 
-  async updateRecord(recordId: string, objectFields: JSON, config: SfConfig) {
+  async updateRecord (recordId: string, objectFields: JSON, config: SfConfig): Promise<any> {
     const body = {
       allowSaveOnDuplicate: false,
-      fields: objectFields,
-    };
+      fields: objectFields
+    }
 
     const conf: AxiosRequestConfig = {
       baseURL: config.urls.baseUrl,
@@ -48,26 +48,26 @@ class Records {
       method: 'patch',
       headers: {
         Authorization: `Bearer ${process.env.SESSION_ID}`,
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      data: body,
-    };
+      data: body
+    }
 
-    return axios.request(conf);
+    return await axios.request(conf)
   }
 
-  async deleteRecord(recordId: string, config: SfConfig) {
+  async deleteRecord (recordId: string, config: SfConfig): Promise<any> {
     const conf: AxiosRequestConfig = {
       baseURL: config.urls.baseUrl,
       url: `${config.paths.data}/ui-api/records/${recordId}`,
       method: 'delete',
       headers: {
-        Authorization: `Bearer ${process.env.SESSION_ID}`,
-      },
-    };
+        Authorization: `Bearer ${process.env.SESSION_ID}`
+      }
+    }
 
-    return axios.request(conf);
+    return await axios.request(conf)
   }
 }
 
-export default new Records();
+export default new Records()
