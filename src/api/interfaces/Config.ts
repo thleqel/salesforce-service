@@ -1,29 +1,29 @@
 export interface SfConfig {
-  urls: SfUrl;
-  paths: SfPath;
+  urls: SfUrl
+  paths: SfPath
 }
 
 export interface SfObject {
-  object: object;
+  object: object
 }
 
 export interface SfUser {
-  user: SfCredential;
+  user: SfCredential
 }
 
 export interface SfCredential {
-  username: string;
-  password: string;
-  token?: string;
+  username: string
+  password: string
+  token?: string
 }
 
 interface SfUrl {
-  baseUrl: string;
-  domain?: string;
+  baseUrl: string
+  domain?: string
 }
 
 interface SfPath {
-  soap: string;
-  data: string;
-  query: string;
+  soap: string
+  data: string
+  query: string
 }
