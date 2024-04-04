@@ -11,7 +11,7 @@
     "test": "npx jest --ci --runInBand --colors --coverage",
     "build": "rm -rf ./lib && tsc",
     "format": "prettier --write \"src/**/*.ts\"",
-    "eslint": "eslint ./src",
+    "lint": "eslint ./src",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
