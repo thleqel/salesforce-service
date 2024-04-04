@@ -12,7 +12,7 @@ pool:
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'
+    versionSpec: '20.5.1'
   displayName: 'Install Node.js'
 
 - script: |
@@ -20,7 +20,7 @@ steps:
   displayName: 'Install dependencies'
 
 - script: |
-    npm run lint
+    npm run eslint
   displayName: 'Check code style'
 
 - script: |
